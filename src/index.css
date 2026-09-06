@@ -1,0 +1,343 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;500;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-serif: "Cinzel", "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-display: "Cinzel", Georgia, "Times New Roman", serif;
+  
+  --color-brand: var(--color-brand-current, #D4AF37); /* Or Principal AFRICANOVA */
+  --color-brand-gold: #D4AF37; /* Or Principal */
+  --color-brand-green: #12B350; /* Vert Clair AFRICANOVA */
+  --color-brand-dark: var(--color-brand-dark-current, #A9791E);
+  --color-brand-accent: var(--color-brand-accent-current, #F5D67A);
+
+  --color-an-black: #0A0A0A;
+  --color-an-card: #161616;
+  --color-an-gold-light: #F5D67A;
+  --color-an-gold: #D4AF37;
+  --color-an-gold-dark: #A9791E;
+  --color-an-green-light: #12B350;
+  --color-an-green-dark: #087A36;
+  --color-an-text-sec: #EDEDED;
+  --color-an-gray: #6B6B6B;
+  
+  --color-surface: var(--surface);
+  --color-surface-elevated: var(--surface-elevated);
+  --color-dark-bg: var(--dark-bg);
+  --color-dark-nav: var(--dark-nav);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-border-subtle: var(--border-subtle);
+
+  --animate-float: float 8s ease-in-out infinite;
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+  }
+  
+  --animate-pulse-slow: pulse-slow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  @keyframes pulse-slow {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+
+  --animate-subtle-zoom: subtle-zoom 20s ease-in-out infinite alternate;
+  @keyframes subtle-zoom {
+    from { transform: scale(1); }
+    to { transform: scale(1.1); }
+  }
+
+  --animate-spin-slow: spin 12s linear infinite;
+  --animate-reverse-spin: spin-reverse 8s linear infinite;
+  @keyframes spin-reverse {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(-360deg); }
+  }
+}
+
+:root {
+  --color-brand-current: #10B981;
+  --color-brand-dark-current: #059669;
+  --color-brand-accent-current: #34D399;
+  --surface: #ffffff;
+  --surface-elevated: #f8fafc;
+  --dark-bg: #fcfcfc;
+  --dark-nav: rgba(255, 255, 255, 0.85);
+  --text-primary: #0f172a;
+  --text-secondary: #64748b;
+  --border-subtle: rgba(0, 0, 0, 0.05);
+}
+
+:root[data-accent="emerald"], [data-accent="emerald"] {
+  --color-brand-current: #10B981;
+  --color-brand-dark-current: #059669;
+  --color-brand-accent-current: #34D399;
+}
+
+:root[data-accent="gold-black"], [data-accent="gold-black"] {
+  --color-brand-current: #F59E0B; /* Or Pur */
+  --color-brand-dark-current: #D97706;
+  --color-brand-accent-current: #FDE047;
+  --color-brand-gold: #F59E0B;
+  --surface: #0a0a0a;
+  --surface-elevated: #141414;
+  --dark-bg: #000000;
+  --dark-nav: rgba(5, 5, 5, 0.95);
+  --border-subtle: rgba(245, 158, 11, 0.22);
+}
+
+:root[data-accent="gold"], [data-accent="gold"] {
+  --color-brand-current: #F59E0B;
+  --color-brand-dark-current: #D97706;
+  --color-brand-accent-current: #FCD34D;
+  --color-brand-gold: #F59E0B;
+  --surface: #0e1216;
+  --surface-elevated: #161c22;
+  --dark-bg: #080C0E;
+  --dark-nav: rgba(8, 12, 14, 0.92);
+  --border-subtle: rgba(245, 158, 11, 0.2);
+}
+
+:root[data-accent="black"], [data-accent="black"] {
+  --color-brand-current: #EAB308;
+  --color-brand-dark-current: #CA8A04;
+  --color-brand-accent-current: #FDE047;
+  --color-brand-gold: #EAB308;
+  --surface: #050505;
+  --surface-elevated: #0f0f0f;
+  --dark-bg: #000000;
+  --dark-nav: rgba(0, 0, 0, 0.98);
+  --border-subtle: rgba(234, 179, 8, 0.18);
+}
+
+:root[data-accent="sapphire"], [data-accent="sapphire"] {
+  --color-brand-current: #2563EB;
+  --color-brand-dark-current: #1D4ED8;
+  --color-brand-accent-current: #60A5FA;
+}
+
+.dark {
+  --surface: #0D1317;
+  --surface-elevated: #131B20;
+  --dark-bg: #080C0E;
+  --dark-nav: rgba(8, 12, 14, 0.9);
+  --text-primary: #ffffff;
+  --text-secondary: #94a3b8;
+  --border-subtle: rgba(255, 255, 255, 0.07);
+}
+
+.dark[data-accent="gold-black"], [data-accent="gold-black"].dark, html[data-accent="gold-black"].dark {
+  --surface: #080808;
+  --surface-elevated: #121212;
+  --dark-bg: #000000;
+  --dark-nav: rgba(5, 5, 5, 0.96);
+  --text-primary: #ffffff;
+  --text-secondary: #cbd5e1;
+  --border-subtle: rgba(245, 158, 11, 0.22);
+}
+
+.dark[data-accent="black"], [data-accent="black"].dark, html[data-accent="black"].dark {
+  --surface: #030303;
+  --surface-elevated: #0d0d0d;
+  --dark-bg: #000000;
+  --dark-nav: rgba(0, 0, 0, 0.98);
+  --text-primary: #ffffff;
+  --text-secondary: #94a3b8;
+  --border-subtle: rgba(234, 179, 8, 0.18);
+}
+
+.dark[data-accent="gold"], [data-accent="gold"].dark, html[data-accent="gold"].dark {
+  --surface: #0e1216;
+  --surface-elevated: #161c22;
+  --dark-bg: #080C0E;
+  --dark-nav: rgba(8, 12, 14, 0.92);
+  --text-primary: #ffffff;
+  --text-secondary: #cbd5e1;
+  --border-subtle: rgba(245, 158, 11, 0.2);
+}
+
+@layer utilities {
+  .glass {
+    @apply bg-white/[0.03] backdrop-blur-2xl border border-white/10;
+  }
+  .glass-dark {
+    @apply bg-black/40 backdrop-blur-2xl border border-white/5;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .text-glow {
+    text-shadow: 0 0 20px rgba(16, 185, 129, 0.35);
+  }
+  .border-gradient {
+    border-image: linear-gradient(to right, var(--color-brand-current, #10B981), transparent) 1;
+  }
+}
+
+/* Dual Range Slider Styles */
+.range-slider-container {
+  @apply relative w-full h-8 flex items-center;
+}
+
+.range-slider-track {
+  @apply absolute w-full h-1 bg-white/10 rounded-full overflow-hidden;
+}
+
+.range-slider-progress {
+  @apply absolute h-1 bg-brand rounded-full transition-all duration-75;
+}
+
+.range-slider-input {
+  @apply absolute w-full h-1 bg-transparent appearance-none pointer-events-none cursor-pointer;
+}
+
+.range-slider-input::-webkit-slider-thumb {
+  @apply appearance-none w-4 h-4 rounded-full bg-brand border-2 border-surface-elevated shadow-xl pointer-events-auto transition-transform hover:scale-125 focus:ring-2 focus:ring-brand/50;
+}
+
+.range-slider-input::-moz-range-thumb {
+  @apply appearance-none w-4 h-4 rounded-full bg-brand border-2 border-surface-elevated shadow-xl pointer-events-auto transition-transform hover:scale-125 focus:ring-2 focus:ring-brand/50;
+}
+
+@layer base {
+  body {
+    @apply bg-dark-bg text-text-primary antialiased selection:bg-brand selection:text-white transition-colors duration-300;
+  }
+}
+
+/* Custom Scrollbar for a professional look */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #050505;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1A1A1A;
+  border-radius: 10px;
+  border: 2px solid #050505;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #D4A017;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Gold Theme Badges Enhancements */
+[data-accent="gold-black"] .badge-energy-gold,
+[data-accent="gold"] .badge-energy-gold,
+[data-accent="black"] .badge-energy-gold,
+:root[data-accent="gold-black"] .badge-energy-gold,
+:root[data-accent="gold"] .badge-energy-gold,
+:root[data-accent="black"] .badge-energy-gold {
+  border-color: rgba(245, 158, 11, 0.65) !important;
+  color: #FCD34D !important;
+  box-shadow: 0 0 16px rgba(245, 158, 11, 0.25);
+}
+
+/* ==========================================================================
+   AFRICANOVA — CHARTE GRAPHIQUE OFFICIELLE
+   Noir Profond: #0A0A0A | Or Principal: #D4AF37 | Vert Clair: #12B350
+   ========================================================================== */
+
+.font-africanova-serif {
+  font-family: 'Cinzel', 'Playfair Display', Georgia, 'Times New Roman', serif;
+  letter-spacing: -0.01em;
+}
+
+.font-africanova-sans {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Hiérarchie typographique officielle desktop */
+.africanova-h1 {
+  font-family: 'Cinzel', 'Playfair Display', Georgia, 'Times New Roman', serif;
+  font-size: clamp(38px, 6.5vw, 88px);
+  line-height: 1.05;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.africanova-h2 {
+  font-family: 'Cinzel', 'Playfair Display', Georgia, 'Times New Roman', serif;
+  font-size: clamp(26px, 3.8vw, 48px);
+  line-height: 1.15;
+  font-weight: 700;
+}
+
+.africanova-h3 {
+  font-family: 'Cinzel', 'Playfair Display', Georgia, 'Times New Roman', serif;
+  font-size: clamp(20px, 2.2vw, 28px);
+  line-height: 1.25;
+  font-weight: 700;
+}
+
+.africanova-body {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.africanova-caption {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+/* Gradients et couleurs officielles */
+.bg-an-gold-gradient {
+  background: linear-gradient(180deg, #F5D67A 0%, #D4AF37 55%, #A9791E 100%);
+}
+
+.bg-an-green-gradient {
+  background: linear-gradient(180deg, #12B350 0%, #087A36 100%);
+}
+
+.text-an-gold-gradient {
+  background: linear-gradient(180deg, #F5D67A 0%, #D4AF37 60%, #A9791E 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-an-green-gradient {
+  background: linear-gradient(180deg, #12B350 0%, #087A36 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Cartes & Blocs UI officiels (Coins arrondis 12-16px, fond #161616) */
+.an-card {
+  background-color: #161616;
+  border-radius: 14px;
+  border: 1px solid rgba(212, 175, 55, 0.22);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.an-card:hover {
+  border-color: rgba(212, 175, 55, 0.6);
+  box-shadow: 0 10px 30px -10px rgba(212, 175, 55, 0.2);
+}
+
+.an-card-green {
+  background-color: #161616;
+  border-radius: 14px;
+  border: 1px solid rgba(18, 179, 80, 0.25);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.an-card-green:hover {
+  border-color: rgba(18, 179, 80, 0.6);
+  box-shadow: 0 10px 30px -10px rgba(18, 179, 80, 0.2);
+}
+
+

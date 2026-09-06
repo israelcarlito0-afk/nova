@@ -1,0 +1,162 @@
+{
+  "entities": {
+    "Property": {
+      "title": "Property",
+      "description": "A real estate listing in the African market.",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string", "description": "The title of the listing." },
+        "location": { "type": "string", "description": "The geographical location (e.g., city, neighborhood)." },
+        "price": { "type": "number", "description": "The numeric price of the property." },
+        "image": { "type": "string", "format": "uri", "description": "Thumbnail image URL." },
+        "images": { 
+          "type": "array", 
+          "items": { "type": "string", "format": "uri" },
+          "description": "A list of image URLs for the property gallery."
+        },
+        "category": { "type": "string", "enum": ["Villa", "Apartment", "Land", "Commercial"], "description": "Category of the property." },
+        "beds": { "type": "number", "description": "Number of bedrooms." },
+        "baths": { "type": "number", "description": "Number of bathrooms." },
+        "sqm": { "type": "number", "description": "Area in square meters." },
+        "description": { "type": "string", "description": "Detailed description of the property." },
+        "ownerId": { "type": "string", "description": "The UID of the user who posted the property." },
+        "status": { "type": "string", "enum": ["available", "sold", "rented"], "description": "Availability status." },
+        "energyRating": { "type": "string", "description": "Energy efficiency performance rating badge (e.g. A+, A, B, C)." },
+        "energyKwh": { "type": "number", "description": "Estimated energy consumption in kWh/m²/year." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Timestamp when the listing was created." }
+      },
+      "required": ["title", "location", "price", "image", "images", "category", "beds", "baths", "sqm", "description", "ownerId", "status", "createdAt"]
+    },
+    "User": {
+      "title": "User",
+      "description": "User profile information and status.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "Full name of the user." },
+        "email": { "type": "string", "format": "email", "description": "User's email address." },
+        "role": { "type": "string", "enum": ["agent", "investor", "client"], "description": "User's role in the platform." },
+        "wallet": { "type": "number", "description": "Current wallet balance." },
+        "photoURL": { "type": "string", "format": "uri", "description": "URL to the profile picture." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Timestamp when the account was created." },
+        "lastLogin": { "type": "string", "format": "date-time", "description": "Timestamp of the last login." }
+      },
+      "required": ["name", "email", "role", "wallet", "createdAt"]
+    },
+    "Transaction": {
+      "title": "Transaction",
+      "description": "Financial records of property dealings.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "The UID of the user who made the transaction." },
+        "amount": { "type": "number", "description": "The gross amount of the transaction." },
+        "commission": { "type": "number", "description": "The calculated commission for the platform." },
+        "net": { "type": "number", "description": "The net amount after commission." },
+        "type": { "type": "string", "enum": ["property_purchase", "rent", "payment"], "description": "Type of transaction." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Server timestamp of creation." }
+      },
+      "required": ["userId", "amount", "commission", "net", "type", "createdAt"]
+    },
+    "Wallet": {
+      "title": "Wallet",
+      "description": "User's financial balance.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "Owner of the wallet." },
+        "balance": { "type": "number", "description": "Current balance." },
+        "currency": { "type": "string", "description": "Currency code (e.g., USD)." }
+      },
+      "required": ["userId", "balance", "currency"]
+    },
+    "ChatMessage": {
+      "title": "ChatMessage",
+      "description": "A message in the AI chat history.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "The user who owns this message." },
+        "role": { "type": "string", "enum": ["user", "assistant"], "description": "The role of the message sender." },
+        "content": { "type": "string", "description": "The text content of the message." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Server timestamp." },
+        "recommendations": { "type": "array", "items": { "type": "string" }, "description": "IDs of properties recommended by the AI." }
+      },
+      "required": ["userId", "role", "content", "createdAt"]
+    },
+    "SavedFilter": {
+      "title": "SavedFilter",
+      "description": "User's saved search filters.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "The user who owns this filter." },
+        "name": { "type": "string", "description": "Custom name for the filter." },
+        "category": { "type": "string" },
+        "priceRange": { "type": "array", "items": { "type": "number" }, "minItems": 2, "maxItems": 2 },
+        "beds": { "type": "number" },
+        "baths": { "type": "number" },
+        "location": { "type": "string" },
+        "yearBuilt": { "type": "number" },
+        "condition": { "type": "string" },
+        "amenities": { "type": "array", "items": { "type": "string" } },
+        "viewType": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "name", "category", "priceRange", "createdAt"]
+    },
+    "PriceSubscription": {
+      "title": "PriceSubscription",
+      "description": "User subscription to a property's price changes.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "The user who owns the subscription." },
+        "propertyId": { "type": "string", "description": "The property ID being subscribed to." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Subscription timestamp." }
+      },
+      "required": ["userId", "propertyId", "createdAt"]
+    },
+    "WaitlistEntry": {
+      "title": "WaitlistEntry",
+      "description": "User notification waitlist for sold properties.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "The user ID who requested notification, if logged in." },
+        "userEmail": { "type": "string", "format": "email", "description": "Notification email address." },
+        "propertyId": { "type": "string", "description": "The property ID of the sold property." },
+        "propertyTitle": { "type": "string", "description": "Title of the property." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Waitlist creation timestamp." }
+      },
+      "required": ["propertyId", "userEmail", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/properties/{propertyId}": {
+      "schema": "Property",
+      "description": "Public collection of real estate listings."
+    },
+    "/waitlist/{waitlistId}": {
+      "schema": "WaitlistEntry",
+      "description": "Waitlist notifications for sold properties."
+    },
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "Private user profiles."
+    },
+    "/users/{userId}/messages/{messageId}": {
+      "schema": "ChatMessage",
+      "description": "User specific chat history with the AI."
+    },
+    "/users/{userId}/savedFilters/{filterId}": {
+      "schema": "SavedFilter",
+      "description": "User's saved search configurations."
+    },
+    "/users/{userId}/priceSubscriptions/{subscriptionId}": {
+      "schema": "PriceSubscription",
+      "description": "User subscription to price change alerts."
+    },
+    "/transactions/{transactionId}": {
+      "schema": "Transaction",
+      "description": "Financial transaction history."
+    },
+    "/wallets/{userId}": {
+      "schema": "Wallet",
+      "description": "User wallet balances."
+    }
+  }
+}

@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <defs>
+    <!-- Gold Gradient -->
+    <linearGradient id="favGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F5D67A" />
+      <stop offset="50%" stop-color="#D4AF37" />
+      <stop offset="100%" stop-color="#A9791E" />
+    </linearGradient>
+
+    <!-- Green Hub Gradient -->
+    <linearGradient id="favGreen" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#12B350" />
+      <stop offset="100%" stop-color="#087A36" />
+    </linearGradient>
+
+    <filter id="favGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Dark Background circle -->
+  <rect width="120" height="120" rx="28" fill="#0A0A0A" />
+
+  <!-- Outer Hexagonal Frame -->
+  <polygon
+    points="60,8 105,33.5 105,86.5 60,112 15,86.5 15,33.5"
+    fill="none"
+    stroke="url(#favGold)"
+    stroke-width="2.5"
+    stroke-linejoin="round"
+  />
+
+  <!-- Interconnecting conduits -->
+  <line x1="60" y1="60" x2="60" y2="18" stroke="url(#favGold)" stroke-width="2" />
+  <line x1="60" y1="60" x2="95" y2="38" stroke="url(#favGold)" stroke-width="2" />
+  <line x1="60" y1="60" x2="95" y2="82" stroke="url(#favGold)" stroke-width="2" />
+  <line x1="60" y1="60" x2="60" y2="102" stroke="url(#favGold)" stroke-width="2" />
+  <line x1="60" y1="60" x2="25" y2="82" stroke="url(#favGold)" stroke-width="2" />
+  <line x1="60" y1="60" x2="25" y2="38" stroke="url(#favGold)" stroke-width="2" />
+
+  <!-- Perimeter nodes (6 poles) -->
+  <circle cx="60" cy="18" r="5" fill="#D4AF37" stroke="#0A0A0A" stroke-width="1.5" />
+  <circle cx="95" cy="38" r="5" fill="#D4AF37" stroke="#0A0A0A" stroke-width="1.5" />
+  <circle cx="95" cy="82" r="5" fill="#D4AF37" stroke="#0A0A0A" stroke-width="1.5" />
+  <circle cx="60" cy="102" r="5" fill="#D4AF37" stroke="#0A0A0A" stroke-width="1.5" />
+  <circle cx="25" cy="82" r="5" fill="#D4AF37" stroke="#0A0A0A" stroke-width="1.5" />
+  <circle cx="25" cy="38" r="5" fill="#D4AF37" stroke="#0A0A0A" stroke-width="1.5" />
+
+  <!-- Central Green Hub -->
+  <circle cx="60" cy="60" r="18" fill="url(#favGreen)" stroke="#F5D67A" stroke-width="2" filter="url(#favGlow)" />
+  
+  <!-- Central Star compass -->
+  <path d="M 60 49 L 63 57 L 71 60 L 63 63 L 60 71 L 57 63 L 49 60 L 57 57 Z" fill="#FFFFFF" />
+</svg>

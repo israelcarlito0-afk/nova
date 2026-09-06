@@ -1,0 +1,78 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    // 1. Properties - Public Read, Authenticated Write
+    match /properties/{propertyId} {
+      allow read: if true;
+      allow write: if isSignedIn();
+      
+      match /{allPaths=**} {
+        allow read: if true;
+        allow write: if isSignedIn();
+      }
+    }
+
+    // 2. Users - Authenticated access to own profile
+    match /users/{userId} {
+      allow get, list, create, update: if isOwner(userId);
+      
+      match /favorites/{favoriteId} {
+        allow get, list, create, update, delete: if isOwner(userId);
+      }
+      
+      match /messages/{messageId} {
+        allow get, list, create: if isOwner(userId);
+        allow update, delete: if false; 
+      }
+
+      match /savedFilters/{filterId} {
+        allow get, list, create, delete: if isOwner(userId);
+        allow update: if false;
+      }
+
+      match /priceSubscriptions/{subscriptionId} {
+        allow get, list, create, delete: if isOwner(userId);
+        allow update: if false;
+      }
+    }
+
+    // 3. Transactions - Authenticated access to own transactions
+    match /transactions/{transactionId} {
+      allow get, list: if isSignedIn() && (resource == null || resource.data.userId == request.auth.uid);
+      allow create: if isSignedIn() && request.resource.data.userId == request.auth.uid;
+      allow update, delete: if false;
+    }
+
+    // 4. Wallets - Authenticated access to own wallet
+    match /wallets/{userId} {
+      allow get, list, create, update: if isOwner(userId);
+    }
+
+    // 5. Test
+    match /test/{docId} {
+      allow read: if true;
+    }
+
+    // 6. Waitlist - Anyone can join waitlist for sold properties
+    match /waitlist/{waitlistId} {
+      allow create: if true;
+      allow read, delete: if isSignedIn() && (resource == null || resource.data.userId == request.auth.uid);
+      allow update: if false;
+    }
+    
+    // Default deny for other paths
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
